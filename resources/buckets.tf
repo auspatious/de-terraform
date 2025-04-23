@@ -1,6 +1,6 @@
 # Public data bucket
 resource "aws_s3_bucket" "public" {
-  bucket = "dep-public-${var.environment}"
+  bucket = "org-public-${var.environment}"
 
   # Keep the bucket and contents safe!
   force_destroy = false

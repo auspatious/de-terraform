@@ -7,8 +7,8 @@ module "resources" {
   source         = "../resources"
   environment    = "prod"
   aws-region     = local.region
-  subdomain      = "prod.digitalearthpacific.io"
-  jhub_subdomain = "digitalearthpacific.org"
+  subdomain      = "prod.example.com"
+  jhub_subdomain = "example.com"
 
   # EKS stuff
   eks-version        = "1.31"
@@ -20,17 +20,17 @@ module "resources" {
   db-instance-class = "db.m5.4xlarge"
 
   # SSO Admin Role ARN
-  sso-admin-role-arn = "arn:aws:iam::533267299239:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_520c3bb14e78482b"
+  sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_520c3bb14e78482b"
 
   # Auth0 Tenant URL
-  auth0-tenant = "https://digitalearthpacific.au.auth0.com"
+  auth0-tenant = "https://example-org.au.auth0.com"
 }
 
 terraform {
   cloud {
-    organization = "DigitalEarthPacific"
+    organization = "ExampleOrganisation"
     workspaces {
-      name = "dep-prod"
+      name = "org-prod"
     }
   }
 }

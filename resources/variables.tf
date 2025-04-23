@@ -64,5 +64,5 @@ locals {
     "project"    = "Digital Earth Example"
   }
   # DB Username
-  db-username = "dep${var.environment}"
+  db-username = "org${var.environment}"
 }
