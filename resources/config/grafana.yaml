@@ -1,0 +1,16 @@
+grafana:
+  grafana.ini:
+    auth.generic_oauth:
+      name: auth0
+      enabled: true
+      allow_sign_up: true
+      client_id: ${client-id}
+      client_secret: ${client-secret}
+      scopes: openid profile email groups
+      auth_url: ${auth0-tenant}/authorize
+      token_url: ${auth0-tenant}/oauth/token
+      api_url: ${auth0-tenant}/userinfo
+      use_pkce: true
+      allowed_groups: "Argo Users"
+      # We only have one tier of users.`Viewer`is the other possible value
+      role_attribute_path: contains(org-groups[*], 'Argo Users') && 'Editor' || 'Viewer'

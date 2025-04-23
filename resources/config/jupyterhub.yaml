@@ -1,0 +1,33 @@
+singleuser:
+  extraEnv:
+    AWS_DEFAULT_REGION: ${region}
+    AWS_NO_SIGN_REQUEST: "YES"
+    GDAL_DISABLE_READDIR_ON_OPEN: "EMPTY_DIR"
+    GDAL_HTTP_MAX_RETRY: "10"
+    GDAL_HTTP_RETRY_DELAY: "0.5"
+hub:
+  db:
+    type: postgres
+    upgrade: true # opt-in for db upgrade
+    password: ${jhub_db_password}
+    url: postgresql+psycopg2://${jhub_db_username}:${jhub_db_password}@${jhub_db_hostname}:5432/${jhub_db_name}
+  config:
+    Auth0OAuthenticator:
+      allow_all: true
+      client_id: ${jhub_auth_client_id}
+      client_secret: ${jhub_auth_client_secret}
+      oauth_callback_url: https://hub.${host_name}/oauth_callback
+      auth0_subdomain: ${auth0_tenant}
+      logout_redirect_url: https://hub.${host_name}
+      enable_auth_state: true
+      manage_groups: true
+      scope:
+        - openid
+        - email
+  services:
+    dask-gateway:
+      apiToken: ${jhub_dask_gateway_api_token}
+  cookieSecret: ${jhub_hub_cookie_secret_token}
+
+proxy:
+  secretToken: ${jhub_proxy_secret_token}
