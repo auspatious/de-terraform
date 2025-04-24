@@ -17,10 +17,10 @@ module "resources" {
   vpc-cni-version    = "v1.19.2-eksbuild.1"
 
   # Database
-  db-instance-class = "db.m5.4xlarge"
+  db-instance-class = "db.r8g.2xlarge"
 
-  # SSO Admin Role ARN
-  sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_520c3bb14e78482b"
+  # SSO Admin Role ARN - Need to replace ACCOUNT_ID and TO_BE_UPDATED
+  sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_TO_BE_UPDATED"
 
   # Auth0 Tenant URL
   auth0-tenant = "https://example-org.au.auth0.com"
