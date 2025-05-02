@@ -11,10 +11,24 @@ TODO: Document stuff
 You need to create some secrets on AWS manually, then refer to them in Terraform.
 
 The list of manual secrets is in [secrets.md](secrets.md).
+These should be deployed to your preferred operating region i.e. `us-west-2`
+
+Route53 hosted zones for each environment need to be created manually, and 
+placeholder text in the `main.tf` terraform (tf) file to match the created hosted
+zones.
+
 
 ## Environment setup
 
-Install the Terraform CLI and login to Terraform Cloud using `terraform login`.
+Install the Terraform CLI and login to Terraform Cloud using `terraform login`.  
+Follow the prompts.  You will need a [Terraform Cloud](https://app.terraform.io) 
+account and have created an access token to perform this command.
+
+Within Terraform Cloud, you will need to manually create a workspace for each 
+environment with the working directory set to either `staging` or `production`.
+
+You should also update the `DigitalEarthExample` and `org-staging` or `org-prod` 
+placeholder text in the `main.tf` terraform (tf) file to match the created workspaces.
 
 ## Authentication
 

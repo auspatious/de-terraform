@@ -5,14 +5,15 @@ in Terraform.
 
 ## List of secrets
 
-Secrets need to be made in each environment manually.
+Secrets need to be made in each environment manually in your region of choice i.e. `us-west-2`.
+Make sure to replace the `EXAMPLELONGSTRING` and `CLIENT:SECRET` with appropriate values. 
 
 Jupyterhub OAuth:
 
 ``` bash
 aws secretsmanager create-secret \
     --name hub-client-secret \
-    --secret-string LONGSTRINGHERE \
+    --secret-string CLIENT:SECRET \
     --region us-west-2
 ```
 
