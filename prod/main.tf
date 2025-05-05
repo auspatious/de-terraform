@@ -11,9 +11,9 @@ module "resources" {
   jhub_subdomain = "example.com"
 
   # EKS stuff
-  eks-version        = "1.31"
+  eks-version        = "1.32"
   coredns-version    = "v1.11.4-eksbuild.2"
-  kube-proxy-version = "v1.29.11-eksbuild.2"
+  kube-proxy-version = "v1.32.0-eksbuild.2"
   vpc-cni-version    = "v1.19.2-eksbuild.1"
 
   # Database
