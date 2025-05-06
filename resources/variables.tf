@@ -52,7 +52,7 @@ variable "sso-admin-role-arn" {
 variable "db-instance-class" {
   type        = string
   description = "The instance class for the database"
-  default     = "db.t4g.medium"
+  default     = "db.r6g.large"
 }
 
 locals {

@@ -40,15 +40,7 @@ data "aws_eks_cluster_auth" "cluster_auth" {
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  # Try to fix https://discuss.hashicorp.com/t/solution-error-getting-credentials/53517
-  token = data.aws_eks_cluster_auth.cluster_auth.token
-
-  # exec {
-  #   api_version = "client.authentication.k8s.io/v1beta1"
-  #   command     = "aws"
-  #   # This requires the awscli to be installed locally where Terraform is executed
-  #   args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
-  # }
+  token                  = data.aws_eks_cluster_auth.cluster_auth.token
 }
 
 provider "helm" {

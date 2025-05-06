@@ -23,7 +23,7 @@ resource "kubernetes_secret" "argo_server_sso" {
 
 # Create a bucket, user and access keys for Argo's artifact storage
 resource "aws_s3_bucket" "argo" {
-  bucket = "argo-artifacts-dep-${var.environment}"
+  bucket = "org-argo-artifacts-dep-${var.environment}"
   tags   = local.tags
 }
 

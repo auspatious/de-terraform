@@ -43,7 +43,7 @@ module "security_group" {
 
 module "db" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "5.2.3"
+  version = "6.0.0"
 
   identifier                     = "${local.cluster_name}-app-db"
   instance_use_identifier_prefix = true
@@ -59,11 +59,11 @@ module "db" {
 
   allocated_storage = 100
 
-  create_random_password = false
-  db_name                = "org"
-  username               = local.db-username
-  password               = aws_secretsmanager_secret_version.db_password.secret_string
-  port                   = 5432
+  manage_master_user_password = false
+  db_name                     = "org"
+  username                    = local.db-username
+  password                    = aws_secretsmanager_secret_version.db_password.secret_string
+  port                        = 5432
 
   create_db_subnet_group = true
   subnet_ids             = module.vpc.private_subnets
@@ -233,4 +233,9 @@ resource "aws_secretsmanager_secret" "odcread_password" {
 resource "aws_secretsmanager_secret_version" "odcread_password" {
   secret_id     = aws_secretsmanager_secret.odcread_password.id
   secret_string = random_password.odcread_random_string.result
+}
+
+output "db_instance_identifier" {
+  description = "RDS database instance identifier"
+  value       = module.db.db_instance_identifier
 }
