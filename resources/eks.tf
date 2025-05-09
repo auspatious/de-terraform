@@ -179,7 +179,7 @@ resource "helm_release" "karpenter" {
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart               = "karpenter"
-  version             = "0.37.7"
+  # version             = "0.37.7"
 
   values = [
     <<-EOT
@@ -205,12 +205,14 @@ resource "helm_release" "karpenter" {
 # Karpenter nodeclass and nodepool
 resource "kubectl_manifest" "karpenter_node_class" {
   yaml_body = <<-YAML
-    apiVersion: karpenter.k8s.aws/v1beta1
+    apiVersion: karpenter.k8s.aws/v1
     kind: EC2NodeClass
     metadata:
       name: default
     spec:
       amiFamily: AL2
+      amiSelectorTerms: 
+        - name: ${var.eks-karpenter-node-ami}
       role: ${module.karpenter.node_iam_role_name}
       blockDeviceMappings:
       - deviceName: /dev/xvda
@@ -234,7 +236,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
 
 resource "kubectl_manifest" "karpenter_node_pool" {
   yaml_body = <<-YAML
-    apiVersion: karpenter.sh/v1beta1
+    apiVersion: karpenter.sh/v1
     kind: NodePool
     metadata:
       name: default
@@ -242,6 +244,8 @@ resource "kubectl_manifest" "karpenter_node_pool" {
       template:
         spec:
           nodeClassRef:
+            group: karpenter.k8s.aws
+            kind: EC2NodeClass
             name: default
           requirements:
             - key: "karpenter.k8s.aws/instance-category"
@@ -274,7 +278,7 @@ resource "kubectl_manifest" "karpenter_node_pool" {
 # Specific nodepool for GPU instances
 resource "kubectl_manifest" "karpenter_node_pool_gpu" {
   yaml_body = <<-YAML
-    apiVersion: karpenter.sh/v1beta1
+    apiVersion: karpenter.sh/v1
     kind: NodePool
     metadata:
       name: gpu
@@ -283,6 +287,8 @@ resource "kubectl_manifest" "karpenter_node_pool_gpu" {
         spec:
           nodeClassRef:
             name: default
+            kind: EC2NodeClass
+            group: karpenter.k8s.aws
           requirements:
           - key: node.kubernetes.io/instance-type
             operator: In
@@ -294,7 +300,8 @@ resource "kubectl_manifest" "karpenter_node_pool_gpu" {
       limits:
         gpu: 30
       disruption:
-        consolidationPolicy: WhenUnderutilized
+        consolidationPolicy: WhenEmptyOrUnderutilized
+        consolidateAfter: Never
 
   YAML
   depends_on = [

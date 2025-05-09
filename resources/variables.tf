@@ -23,6 +23,11 @@ variable "vpc-cni-version" {
   description = "The version of VPC CNI for this environment"
 }
 
+variable "eks-karpenter-node-ami" {
+  type        = string
+  description = "The ami to use to the karpenter nodes"
+}
+
 variable "kube-proxy-version" {
   type        = string
   description = "The version of kube-proxy for this environment"
