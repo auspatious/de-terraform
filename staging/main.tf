@@ -5,10 +5,10 @@ locals {
 module "resources" {
   # This section is the customisation for the environment
   source         = "../resources"
-  environment    = "staging"
+  environment    = "prod"
   aws-region     = local.region
-  subdomain      = "de-staging.spatialinsite.com.au"
-  jhub_subdomain = "de-jhub-staging.spatialinsite.com.au"
+  subdomain      = "prod.example.com"
+  jhub_subdomain = "example.com"
 
   # EKS stuff
   eks-version            = "1.32"
@@ -21,17 +21,17 @@ module "resources" {
   db-instance-class = "db.r8g.large"
 
   # SSO Admin Role ARN - Need to replace ACCOUNT_ID and TO_BE_UPDATED
-  sso-admin-role-arn = "arn:aws:iam::971422685953:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_090ec2ad620e4a04"
+  sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_TO_BE_UPDATED"
 
   # Auth0 Tenant URL
-  auth0-tenant = "https://example-org-staging.eu.auth0.com"
+  auth0-tenant = "https://example-org.au.auth0.com"
 }
 
 terraform {
   cloud {
-    organization = "spatial-insite"
+    organization = "ExampleOrganisation"
     workspaces {
-      name = "org-staging"
+      name = "org-prod"
     }
   }
 }
