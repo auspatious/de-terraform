@@ -5,10 +5,10 @@ locals {
 module "resources" {
   # This section is the customisation for the environment
   source         = "../resources"
-  environment    = "prod"
+  environment    = "staging"
   aws-region     = local.region
-  subdomain      = "prod.example.com"
-  jhub_subdomain = "example.com"
+  subdomain      = "staging.example.com"
+  jhub_subdomain = "staging.example.com"
 
   # EKS stuff
   eks-version            = "1.32"
@@ -24,14 +24,14 @@ module "resources" {
   sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_TO_BE_UPDATED"
 
   # Auth0 Tenant URL
-  auth0-tenant = "https://example-org.au.auth0.com"
+  auth0-tenant = "https://example-org-stagiung.eu.auth0.com"
 }
 
 terraform {
   cloud {
-    organization = "ExampleOrganisation"
+    organization = "DigitalEarthExample"
     workspaces {
-      name = "org-prod"
+      name = "org-staging"
     }
   }
 }
