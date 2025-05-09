@@ -24,7 +24,7 @@ module "resources" {
   sso-admin-role-arn = "arn:aws:iam::ACCOUNT_ID:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_TO_BE_UPDATED"
 
   # Auth0 Tenant URL
-  auth0-tenant = "https://example-org-stagiung.eu.auth0.com"
+  auth0-tenant = "https://example-org-staging.eu.auth0.com"
 }
 
 terraform {
