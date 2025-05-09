@@ -11,10 +11,11 @@ module "resources" {
   jhub_subdomain = "staging.example.com"
 
   # EKS stuff
-  eks-version        = "1.32"
-  coredns-version    = "v1.11.4-eksbuild.2"
-  kube-proxy-version = "v1.32.0-eksbuild.2"
-  vpc-cni-version    = "v1.19.2-eksbuild.1"
+  eks-version            = "1.32"
+  coredns-version        = "v1.11.4-eksbuild.2"
+  kube-proxy-version     = "v1.32.0-eksbuild.2"
+  vpc-cni-version        = "v1.19.2-eksbuild.1"
+  eks-karpenter-node-ami = "ubuntu-eks/k8s_1.32/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20250430"
 
   # Database
   db-instance-class = "db.r8g.large"
