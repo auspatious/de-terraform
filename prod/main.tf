@@ -5,6 +5,7 @@ locals {
 module "resources" {
   # This section is the customisation for the environment
   source         = "../resources"
+  org-short-name = "TO_BE_UPDATED"
   environment    = "prod"
   aws-region     = local.region
   subdomain      = "prod.example.com"

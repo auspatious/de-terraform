@@ -1,11 +1,11 @@
 # Need a bucket and a access and secret key to write to it
 resource "aws_s3_bucket" "terria_bucket" {
-  bucket = "org-terria-bucket-${var.environment}"
+  bucket = "${var.org-short-name}-terria-bucket-${var.environment}"
 }
 
 # User to write to the bucket
 resource "aws_iam_user" "terria_user" {
-  name = "org-terria-user-${var.environment}"
+  name = "${var.org-short-name}-terria-user-${var.environment}"
 }
 
 resource "aws_iam_access_key" "terria" {
@@ -14,7 +14,7 @@ resource "aws_iam_access_key" "terria" {
 
 # Policy to allow the user to write to the bucket
 resource "aws_iam_user_policy" "terria_policy" {
-  name = "org-terria-policy-${var.environment}"
+  name = "${var.org-short-name}-terria-policy-${var.environment}"
   user = aws_iam_user.terria_user.name
 
   policy = <<EOF

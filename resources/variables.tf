@@ -1,3 +1,8 @@
+variable "org-short-name" {
+  type        = string
+  description = "The short name of the organisation"
+}
+
 variable "environment" {
   type        = string
   description = "Environments, i.e., test, stage, prod"
