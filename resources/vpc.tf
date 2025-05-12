@@ -2,7 +2,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.5"
 
-  name = "org-vpc-${var.environment}"
+  name = "${var.org-short-name}-vpc-${var.environment}"
 
   azs             = ["${var.aws-region}a", "${var.aws-region}b", "${var.aws-region}c"]
 
@@ -21,11 +21,11 @@ module "vpc" {
 
   # From Karpenter example https://github.com/clowdhaus/eks-reference-architecture/blob/main/karpenter/vpc.tf
   manage_default_network_acl    = true
-  default_network_acl_tags      = { Name = "org-${var.environment}-default" }
+  default_network_acl_tags      = { Name = "${var.org-short-name}-${var.environment}-default" }
   manage_default_route_table    = true
-  default_route_table_tags      = { Name = "org-${var.environment}-default" }
+  default_route_table_tags      = { Name = "${var.org-short-name}-${var.environment}-default" }
   manage_default_security_group = true
-  default_security_group_tags   = { Name = "org-${var.environment}-default" }
+  default_security_group_tags   = { Name = "${var.org-short-name}-${var.environment}-default" }
 
   public_subnet_tags = {
     "SubnetType"             = "Public"

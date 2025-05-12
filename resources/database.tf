@@ -60,7 +60,7 @@ module "db" {
   allocated_storage = 100
 
   manage_master_user_password = false
-  db_name                     = "org"
+  db_name                     = var.org-short-name
   username                    = local.db-username
   password                    = aws_secretsmanager_secret_version.db_password.secret_string
   port                        = 5432

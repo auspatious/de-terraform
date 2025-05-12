@@ -1,6 +1,6 @@
 # Public data bucket
 resource "aws_s3_bucket" "public" {
-  bucket = "org-public-${var.environment}"
+  bucket = "${var.org-short-name}-public-${var.environment}"
 
   # Keep the bucket and contents safe!
   force_destroy = false
@@ -45,6 +45,8 @@ resource "aws_s3_bucket_cors_configuration" "example" {
 }
 
 resource "aws_s3_bucket_policy" "public_read_policy" {
+  depends_on = [aws_s3_bucket_public_access_block.public_access]
+
   bucket = aws_s3_bucket.public.bucket
 
   policy = jsonencode({

@@ -23,7 +23,7 @@ resource "kubernetes_secret" "argo_server_sso" {
 
 # Create a bucket, user and access keys for Argo's artifact storage
 resource "aws_s3_bucket" "argo" {
-  bucket = "org-argo-artifacts-dep-${var.environment}"
+  bucket = "${var.org-short-name}-argo-artifacts-dep-${var.environment}"
   tags   = local.tags
 }
 
@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "argo" {
 module "argo_artifact_service_account" {
   source = "../modules/service-account"
 
-  name              = "argo-artifact-read-write-sa"
+  name              = "${var.org-short-name}-argo-artifact-read-write-sa"
   namespace         = "argo"
   oidc_provider_arn = module.eks.oidc_provider_arn
   write_bucket_names = [
@@ -45,7 +45,7 @@ module "argo_artifact_service_account" {
 
 # Create a policy to read/write the bucket
 resource "aws_iam_policy" "argo_artifact_read_write_policy" {
-  name        = "argo-artifact-read-write"
+  name        = "${var.org-short-name}-argo-artifact-read-write"
   description = "Policy to read/write Argo artifacts"
   policy = jsonencode({
     Version = "2012-10-17",
@@ -69,7 +69,7 @@ resource "aws_iam_policy" "argo_artifact_read_write_policy" {
 
 # And a role
 resource "aws_iam_role" "argo_artifact_read_write_role" {
-  name = "argo-artifact-read-write"
+  name = "${var.org-short-name}-argo-artifact-read-write"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -88,7 +88,7 @@ resource "aws_iam_role" "argo_artifact_read_write_role" {
 
 # And a user
 resource "aws_iam_user" "argo_artifact_read_write_user" {
-  name = "argo-artifact-read-write"
+  name = "${var.org-short-name}-argo-artifact-read-write"
 }
 
 # Attach the policy to the role

@@ -8,10 +8,10 @@ esac
 if [ $destroy_all == true ]
     then
         # Empty the bucket
-        aws s3 rm s3://org-public-staging --recursive
+        terraform output -json | jq .public_bucket_name.value | xargs -i aws s3 rm s3://{} --recursive
 
         # Delete the bucket
-        aws s3 rb s3://org-public-staging
+        terraform output -json | jq .public_bucket_name.value | xargs -i aws s3 rb s3://{}
 
         # Remove the bucket from the state file
         terraform state rm module.resources.aws_s3_bucket.public
@@ -29,7 +29,6 @@ if [ $destroy_all == true ]
         aws secretsmanager delete-secret --secret-id argo-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id grafana-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id jupyterhub-password --force-delete-without-recovery --region us-west-2
-        aws secretsmanager delete-secret --secret-id jodc-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id stac-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id odcread-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id odc-password --force-delete-without-recovery --region us-west-2
@@ -40,7 +39,6 @@ if [ $destroy_all == true ]
         terraform state rm module.resources.aws_secretsmanager_secret.argo_password
         terraform state rm module.resources.aws_secretsmanager_secret.grafana_password
         terraform state rm module.resources.aws_secretsmanager_secret.jupyterhub_password
-        terraform state rm module.resources.aws_secretsmanager_secret.jodc_password
         terraform state rm module.resources.aws_secretsmanager_secret.stac_password
         terraform state rm module.resources.aws_secretsmanager_secret.odcread_password
         terraform state rm module.resources.aws_secretsmanager_secret.odc_password
