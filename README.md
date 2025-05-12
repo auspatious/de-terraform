@@ -4,7 +4,12 @@ Infrastructure as code for the modern Digital Earth
 
 ## Overview
 
-TODO: Document stuff
+This repository serves as a reference implementation of a Terraform-based infrastructure for
+deploying a Digital Earth platform. This repository contains infrastructure as code templates
+for separate staging and production environments, including a Kubernetes cluster and key
+components, plus a public data bucket. This repository should be considered in context with
+the [de-flux](https://github.com/auspatious/de-flux) repository, which contains the application
+deployment configuration based on Flux.
 
 ## Manual steps
 
