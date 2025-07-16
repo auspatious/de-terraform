@@ -31,17 +31,17 @@ module "eks" {
         computeType = "Fargate"
         autoScaling = {
           enabled     = true
-          minReplicas = 4
+          minReplicas = 2
           maxReplicas = 10
         }
         resources = {
           requests = {
-            cpu    = "0.50"
-            memory = "256M"
+            cpu    = "0.25"
+            memory = "512M"
           }
           limits = {
-            cpu    = "1.00"
-            memory = "512M"
+            cpu    = "0.5"
+            memory = "1024M"
           }
         }
       })
