@@ -67,12 +67,12 @@ variable "db-instance-class" {
 
 locals {
   # Kubernetes config
-  cluster_name = "org-${var.environment}-eks"
+  cluster_name = "${var.org-short-name}-${var.environment}-eks"
   # Tags to use on everything
   tags = {
-    "stack-name" = "org-${var.environment}"
-    "project"    = "Digital Earth Example"
+    "stack-name" = "${var.org-short-name}-${var.environment}"
+    "project"    = "Digital Earth - ${var.org-short-name}"
   }
   # DB Username
-  db-username = "org${var.environment}"
+  db-username = replace("${var.org-short-name}-${var.environment}", "-", "")
 }
