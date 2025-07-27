@@ -1,8 +1,3 @@
-variable "org-short-name" {
-  type        = string
-  description = "The short name of the organisation"
-}
-
 variable "environment" {
   type        = string
   description = "Environments, i.e., test, stage, prod"
@@ -67,12 +62,12 @@ variable "db-instance-class" {
 
 locals {
   # Kubernetes config
-  cluster_name = "${var.org-short-name}-${var.environment}-eks"
+  cluster_name = "org-${var.environment}-eks"
   # Tags to use on everything
   tags = {
-    "stack-name" = "${var.org-short-name}-${var.environment}"
-    "project"    = "Digital Earth - ${var.org-short-name}"
+    "stack-name" = "org-${var.environment}"
+    "project"    = "Digital Earth Example"
   }
   # DB Username
-  db-username = replace("${var.org-short-name}-${var.environment}", "-", "")
+  db-username = "org${var.environment}"
 }
