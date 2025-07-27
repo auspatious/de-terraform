@@ -35,7 +35,8 @@ resource "aws_iam_policy" "read_write_policy" {
         # Write
         Action = [
           "S3:PutObject",
-          "S3:PutObjectAcl"
+          "S3:PutObjectAcl",
+          "S3:DeleteObject"
         ]
         Effect = "Allow"
 

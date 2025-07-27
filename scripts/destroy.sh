@@ -5,6 +5,8 @@ case $doit in
   *) destroy_all=false ;;
 esac
 
+# Need to add in here to uninstall Flux and also delete any ALBs and Spot instance requests spun up by Karpenter
+
 if [ $destroy_all == true ]
     then
         # Empty the bucket
@@ -32,6 +34,7 @@ if [ $destroy_all == true ]
         aws secretsmanager delete-secret --secret-id stac-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id odcread-password --force-delete-without-recovery --region us-west-2
         aws secretsmanager delete-secret --secret-id odc-password --force-delete-without-recovery --region us-west-2
+        aws secretsmanager delete-secret --secret-id pachyderm-password --force-delete-without-recovery --region us-west-2
 
         # Remove the secrets from the state file
         terraform state rm module.resources.aws_secretsmanager_secret.stacread_password
@@ -42,6 +45,7 @@ if [ $destroy_all == true ]
         terraform state rm module.resources.aws_secretsmanager_secret.stac_password
         terraform state rm module.resources.aws_secretsmanager_secret.odcread_password
         terraform state rm module.resources.aws_secretsmanager_secret.odc_password
+        terraform state rm module.resources.aws_secretsmanager_secret.pachyderm_password
 
         terraform apply -destroy -auto-approve
     else
@@ -61,6 +65,7 @@ if [ $destroy_all == true ]
         terraform state rm module.resources.aws_secretsmanager_secret.stac_password
         terraform state rm module.resources.aws_secretsmanager_secret.odcread_password
         terraform state rm module.resources.aws_secretsmanager_secret.odc_password
+        terraform state rm module.resources.aws_secretsmanager_secret.pachyderm_password
 
         terraform apply -destroy -auto-approve
 fi
