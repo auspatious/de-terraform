@@ -39,8 +39,9 @@ resource "aws_s3_bucket_acl" "public" {
 resource "aws_s3_bucket_cors_configuration" "example" {
   bucket = aws_s3_bucket.public.id
   cors_rule {
-    allowed_methods = ["GET"]
+    allowed_methods = ["GET", "HEAD"]
     allowed_origins = ["*"]
+    allowed_headers = ["*"]
   }
 }
 
