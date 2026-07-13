@@ -208,3 +208,15 @@ resource "kubernetes_secret" "odc_secret" {
   }
   type = "Opaque"
 }
+
+resource "kubernetes_secret" "pachyderm_secret" {
+  metadata {
+    name      = "pachyderm"
+    namespace = resource.kubernetes_namespace.argo.metadata[0].name
+  }
+  data = {
+    username = "pachyderm"
+    password = aws_secretsmanager_secret_version.pachyderm_password.secret_string
+  }
+  type = "Opaque"
+}

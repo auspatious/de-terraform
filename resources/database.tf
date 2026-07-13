@@ -239,3 +239,19 @@ output "db_instance_identifier" {
   description = "RDS database instance identifier"
   value       = module.db.db_instance_identifier
 }
+
+# Pachyderm 
+resource "random_password" "pachyderm_random_string" {
+  length           = 32
+  special          = true
+  override_special = "_!%^"
+}
+
+resource "aws_secretsmanager_secret" "pachyderm_password" {
+  name = "pachyderm-password"
+}
+
+resource "aws_secretsmanager_secret_version" "pachyderm_password" {
+  secret_id     = aws_secretsmanager_secret.pachyderm_password.id
+  secret_string = random_password.pachyderm_random_string.result
+}

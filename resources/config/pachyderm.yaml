@@ -1,0 +1,34 @@
+global:
+  postgresql:
+    postgresqlAuthType: "scram-sha-256" # use "md5" if using postgresql < 14
+    postgresqlUsername: "${username}"
+    postgresqlPassword: "${password}" 
+    postgresqlDatabase: "${database-name}"
+    postgresqlHost: "${database-host}"
+    postgresqlPort: "5432"
+    postgresqlSSL: "prefer"
+
+postgresql:
+  enabled: false
+
+deployTarget: "AMAZON"
+
+proxy:
+  enabled: true
+  service:
+    type: ClusterIP
+
+pachd:
+  serviceAccount:
+    additionalAnnotations:
+      eks.amazonaws.com/role-arn: "${svc-account}"
+  logLevel: "debug"
+  storage:
+    backend: "AMAZON"
+    storageURL: "s3://${bucket-name}"
+    amazon:
+      region: "us-west-2"
+  activateAuth: false
+
+console:
+  enabled: true
